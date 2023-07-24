@@ -1,15 +1,8 @@
-'use client'
+import { useState } from "react";
+import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai"
 
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-
-type Props = {}
-
-export default function Admin({}: Props) {
-  const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
+export default function Admin() {
+    const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,25 +17,9 @@ export default function Admin({}: Props) {
     }));
   }
 
-  const onSubmit = async (e: any) => {
-    e.preventDefault();
-
-    try {
-      const auth = getAuth();
-      const userCredentials = await signInWithEmailAndPassword(auth, email, password);
-
-      if(userCredentials.user) {
-        console.log(userCredentials);
-        router.push("/");
-      }
-    } catch(err) {
-      console.log(err);
-    }
-  } 
-
   return (
     <div className="w-screen h-screen flex justify-center pt-10">
-      <form onSubmit={onSubmit} className="whitespace-nowrap w-full md:w-[60%] max-h-[70%] bg-cyan-700 flex flex-col items-center gap-5 py-10 px-3  mx-5 md:mx-10 rounded-md outline-none-none">
+      <form className="whitespace-nowrap w-full md:w-[60%] max-h-[70%] bg-cyan-700 flex flex-col items-center gap-5 py-10 px-3  mx-5 md:mx-10 rounded-md outline-none-none">
         <h1 className="text-2xl font-semibold font-sans text-zinc-100">Admin Login</h1>
 
         <input 
