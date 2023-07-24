@@ -34,9 +34,9 @@ export default function Admin() {
           onChange={onChange}
         />
 
-        <div className="w-full md:w-[80%] h-full relative">
+        <div className="w-full md:w-[80%] relative">
           <input
-            className="w-full rounded bg-zinc-100 focus:bg-opacity-75 border-none  focus:outline-cyan-950 text-sm md:text-lg"
+            className="w-full h-full rounded bg-zinc-100 focus:bg-opacity-75 border-none  focus:outline-cyan-950 text-sm md:text-lg"
             type={showPassword ? "text" : "password"}
             id="password"
             value={password}
@@ -45,12 +45,12 @@ export default function Admin() {
           />
           {showPassword ? (
             <AiFillEyeInvisible
-              className="absolute right-2 top-2 md:top-3 text-xl cursor-pointer"
+              className="absolute right-2 top-[20%] text-xl cursor-pointer"
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           ) : (
             <AiFillEye
-              className="absolute right-2 top-2 md:top-3 text-xl cursor-pointer"
+              className="absolute right-2 top-[20%] text-xl cursor-pointer"
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           )}
