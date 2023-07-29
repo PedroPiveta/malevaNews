@@ -1,11 +1,11 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
+import useAuthStatus from "../hooks/useAuthStatus";
 
 export default function AdminLogin() {
-
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -35,7 +35,15 @@ export default function AdminLogin() {
     }
   };
 
-  return (
+  const { loggedIn, checkingStatus } = useAuthStatus();
+    
+    if (checkingStatus) {
+        return <div>Loading...</div>
+    } else if (loggedIn) {
+      return <Navigate to="/create" />
+    } 
+    
+ return (
     <div className="w-screen h-screen flex justify-center pt-10">
       <form onSubmit={onSubmit} className="whitespace-nowrap w-full md:w-[60%] max-h-[70%] bg-cyan-700 flex flex-col items-center gap-5 py-10 px-3  mx-5 md:mx-10 rounded-md outline-none-none">
         <h1 className="text-2xl font-semibold font-sans text-zinc-100">
@@ -43,7 +51,7 @@ export default function AdminLogin() {
         </h1>
 
         <input
-          className="w-full md:w-[80%] rounded bg-zinc-100 focus:bg-opacity-75 border-none  focus:outline-cyan-950 text-sm md:text-lg"
+          className="w-full md:w-[80%] rounded bg-zinc-100 focus:bg-opacity-75 border-none px-2 py-4  focus:outline-cyan-950 text-sm md:text-lg"
           type="email"
           name="email"
           id="email"
@@ -54,7 +62,7 @@ export default function AdminLogin() {
 
         <div className="w-full md:w-[80%] relative">
           <input
-            className="w-full h-full rounded bg-zinc-100 focus:bg-opacity-75 border-none  focus:outline-cyan-950 text-sm md:text-lg"
+            className="w-full h-full rounded bg-zinc-100 focus:bg-opacity-75 border-none px-2 py-4  focus:outline-cyan-950 text-sm md:text-lg"
             type={showPassword ? "text" : "password"}
             id="password"
             value={password}
@@ -63,12 +71,12 @@ export default function AdminLogin() {
           />
           {showPassword ? (
             <AiFillEyeInvisible
-              className="absolute right-2 top-[20%] text-xl cursor-pointer"
+              className="absolute right-2 top-[32%] text-xl cursor-pointer"
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           ) : (
             <AiFillEye
-              className="absolute right-2 top-[20%] text-xl cursor-pointer"
+              className="absolute right-2 top-[32%] text-xl cursor-pointer"
               onClick={() => setShowPassword((prevState) => !prevState)}
             />
           )}
