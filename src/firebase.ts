@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,6 +32,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore();
+const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
 const enviarNoticiaParaFirebase = async (title: string, body: string) => {
@@ -46,4 +48,26 @@ const enviarNoticiaParaFirebase = async (title: string, body: string) => {
   }
 };
 
-export { auth, db, analytics, enviarNoticiaParaFirebase };
+const uploadImagem = async (image: File) => {
+  try {
+    // Gera um nome único para o arquivo usando a data atual
+    const nomeArquivo = Date.now() + '-' + image.name;
+
+    // Referência para o arquivo no Firebase Storage
+    const storageRef = ref(storage, 'caminho/para/a/pasta/' + nomeArquivo);
+
+    // Faz o upload da imagem para o Firebase Storage
+    await uploadBytes(storageRef, image);
+
+    // Obtém a URL de download da imagem após o upload
+    const downloadURL = await getDownloadURL(storageRef);
+
+    // Retorna a URL da imagem para ser usada no seu aplicativo
+    return downloadURL;
+  } catch (error) {
+    console.error('Erro ao fazer upload da imagem:', error);
+    throw error;
+  }
+}
+
+export { auth, db, analytics, storage, enviarNoticiaParaFirebase, uploadImagem };
