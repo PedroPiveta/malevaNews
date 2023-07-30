@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -29,6 +30,20 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore();
 const analytics = getAnalytics(app);
 
-export { auth, analytics };
+const enviarNoticiaParaFirebase = async (title: string, body: string) => {
+  try {
+    const noticiasRef = collection(db, 'noticias');
+    await addDoc(noticiasRef, {
+      title: title,
+      body: body,
+    });
+    console.log("Notícia enviada com sucesso!");
+  } catch (error) {
+    console.error("Erro ao enviar notícia:", error);
+  }
+};
+
+export { auth, db, analytics, enviarNoticiaParaFirebase };
