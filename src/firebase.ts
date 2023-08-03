@@ -54,7 +54,7 @@ const uploadImagem = async (image: File) => {
     const nomeArquivo = Date.now() + '-' + image.name;
 
     // Referência para o arquivo no Firebase Storage
-    const storageRef = ref(storage, 'caminho/para/a/pasta/' + nomeArquivo);
+    const storageRef = ref(storage, '/fotos' + nomeArquivo);
 
     // Faz o upload da imagem para o Firebase Storage
     await uploadBytes(storageRef, image);
