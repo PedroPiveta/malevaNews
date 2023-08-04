@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { auth, enviarNoticiaParaFirebase, uploadImagem } from "../firebase";
 import { useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
 
 export default function AdminControl() {
   const [imagem, setImagem] = useState<File | null>(null);
@@ -38,7 +39,6 @@ export default function AdminControl() {
       try {
         const urlImagem = await uploadImagem(imagem);
         console.log("URL da imagem:", urlImagem);
-        // Aqui você pode fazer o que quiser com a URL da imagem, como exibi-la no seu aplicativo.
       } catch (error) {
         console.error("Erro ao fazer upload da imagem:", error);
       }
@@ -56,28 +56,42 @@ export default function AdminControl() {
         <h1 className="text-white text-2xl font-semibold">AdminControl</h1>
         <p className="text-white">Olá {auth.currentUser?.email}</p>
       </header>
-      <form className="bg-cyan-700 mt-12 flex flex-col items-center w-[70%]" onSubmit={createNews}>
-          <label className="text-white text-lg" htmlFor="title">
-            Título da notícia
-          </label>
-          <input
-            className="w-[80%] md:w-[50%] mb-6 rounded-md text-black px-4 py-2"
-            onChange={onChange}
-            type="text"
-            name="title"
-            id="title"
-          />
+
+      <form
+        className="bg-cyan-700 rounded-md mt-12 py-4 px-2 flex flex-col items-center w-[70%]"
+        onSubmit={createNews}
+      >
+        <label className="text-white text-lg" htmlFor="title">
+          Título da notícia
+        </label>
+        <input
+          className="w-[90%] sm:w-[60%] mb-6 rounded text-black px-4 py-2"
+          onChange={onChange}
+          type="text"
+          name="title"
+          id="title"
+        />
         <label className="text-white text-lg" htmlFor="body">
           Corpo da notícia
         </label>
         <textarea
-          className="w-[80%] md:w-[50%] h-40 mb-6 rounded-md text-black px-4 py-2"
+          className="w-[90%] sm:w-[60%] h-40 text-sm md:text-lg mb-6 min-h-[350px] rounded text-black px-4 py-2"
           onChange={onChange}
           name="body"
           id="body"
         />
-        <input type="file" onChange={handleChangeImagem} />
-        <button>postar noticia</button>
+        <input
+          className="text-white mx-auto w-full md:w-[50%] px-4 whitespace-normal"
+          type="file"
+          onChange={handleChangeImagem}
+        />
+        <button
+          className="flex items-center text-white font-semibold bg-cyan-800 py-2 px-4 rounded uppercase mt-6 mb-6"
+          type="submit"
+        >
+          <AiOutlinePlus className="mr-2 font-semibold" />
+          postar notícia
+        </button>
         <button type="button" className="text-white" onClick={onSignOut}>
           Sair da conta de admin
         </button>
