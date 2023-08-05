@@ -80,6 +80,7 @@ export default function AdminControl() {
           className="text-white mx-auto w-full md:w-[50%] px-4 whitespace-normal"
           type="file"
           onChange={handleChangeImagem}
+          accept=".jpg,.png,.jpeg"
           required
         />
         <button
