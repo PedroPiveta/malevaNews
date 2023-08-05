@@ -31,16 +31,17 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getFirestore();
+const db = getFirestore(app);
 const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
-const enviarNoticiaParaFirebase = async (title: string, body: string) => {
+const enviarNoticiaParaFirebase = async (title: string, body: string, bannerUrl: string) => {
   try {
     const noticiasRef = collection(db, 'noticias');
     await addDoc(noticiasRef, {
       title: title,
       body: body,
+      bannerUrl: bannerUrl,
     });
     console.log("Notícia enviada com sucesso!");
   } catch (error) {
@@ -54,7 +55,7 @@ const uploadImagem = async (image: File) => {
     const nomeArquivo = Date.now() + '-' + image.name;
 
     // Referência para o arquivo no Firebase Storage
-    const storageRef = ref(storage, '/fotos' + nomeArquivo);
+    const storageRef = ref(storage, '/fotos/' + nomeArquivo);
 
     // Faz o upload da imagem para o Firebase Storage
     await uploadBytes(storageRef, image);

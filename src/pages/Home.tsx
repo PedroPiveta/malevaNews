@@ -1,30 +1,20 @@
 import { useEffect } from 'react'
 import Header from '../components/Header';
 import { db } from '../firebase';
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, query } from 'firebase/firestore';
 
 
 export default function Home() {
-  // const [noticias, setNoticias] = useState([]);
+  // const [noticias, setNoticias] = useState(null);
 
   useEffect(() => {
     async function getNoticias() {
       try {
-        const noticiasRef = doc(collection(db, 'noticias'));
-        const snapshot = await getDoc(noticiasRef);
-
-        if (snapshot.exists()) {
-          console.log("Document data:", snapshot.data);
-        } else {
-          // docSnap.data() will be undefined in this case
-          console.log("No such document!");
-        }
-
-        // const listaNoticias = snapshot.docs.map((doc) => ({
-        //   id: doc.id,
-        //   ...doc.data(),
-        // }));
-        // setNoticias(listaNoticias);
+        const q = query(collection(db, "noticias"));
+        const snapshot = await getDocs(q);
+        snapshot.forEach(doc => {
+          console.log(doc.id, " => ", doc.data());
+        })
       } catch (error) {
         console.error('Erro ao obter notícias:', error);
       }

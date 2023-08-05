@@ -8,8 +8,9 @@ export default function AdminControl() {
   const [formData, setFormData] = useState({
     title: "",
     body: "",
+    bannerUrl: "",
   });
-  const { title, body } = formData;
+  const { title, body, bannerUrl } = formData;
   const navigate = useNavigate();
 
   function onChange(
@@ -30,18 +31,18 @@ export default function AdminControl() {
     e.preventDefault();
 
     try {
-      enviarNoticiaParaFirebase(title, body);
-    } catch (err) {
-      console.error(err);
-    }
-
-    if (imagem) {
-      try {
-        const urlImagem = await uploadImagem(imagem);
-        console.log("URL da imagem:", urlImagem);
-      } catch (error) {
-        console.error("Erro ao fazer upload da imagem:", error);
+      const urlImagem = await uploadImagem(imagem);
+      setFormData((prevState) => ({
+        ...prevState,
+        bannerUrl: urlImagem,
+      }));
+      if (urlImagem !== "") {
+        enviarNoticiaParaFirebase(title, body, bannerUrl);
       }
+      console.log(formData);
+      console.log("URL da imagem:", urlImagem);
+    } catch (error) {
+      console.error("Erro ao fazer upload da imagem:", error);
     }
   }
 
@@ -84,6 +85,7 @@ export default function AdminControl() {
           className="text-white mx-auto w-full md:w-[50%] px-4 whitespace-normal"
           type="file"
           onChange={handleChangeImagem}
+          required
         />
         <button
           className="flex items-center text-white font-semibold bg-cyan-800 py-2 px-4 rounded uppercase mt-6 mb-6"
