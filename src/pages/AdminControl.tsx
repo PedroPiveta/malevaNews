@@ -8,9 +8,8 @@ export default function AdminControl() {
   const [formData, setFormData] = useState({
     title: "",
     body: "",
-    bannerUrl: "",
   });
-  const { title, body, bannerUrl } = formData;
+  const { title, body } = formData;
   const navigate = useNavigate();
 
   function onChange(
@@ -32,15 +31,11 @@ export default function AdminControl() {
 
     try {
       const urlImagem = await uploadImagem(imagem);
-      setFormData((prevState) => ({
-        ...prevState,
-        bannerUrl: urlImagem,
-      }));
-      if (urlImagem !== "") {
-        enviarNoticiaParaFirebase(title, body, bannerUrl);
-      }
+      enviarNoticiaParaFirebase(title, body, urlImagem);
       console.log(formData);
       console.log("URL da imagem:", urlImagem);
+
+      navigate("/");
     } catch (error) {
       console.error("Erro ao fazer upload da imagem:", error);
     }
