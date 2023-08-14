@@ -5,6 +5,7 @@ type Props = {
 }
 
 export default function Noticia({ title, body, bannerUrl }: Props) {
+  
   return (
     <div>
       <h1 className="text-white">{ title }</h1>

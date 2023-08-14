@@ -35,13 +35,15 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 const analytics = getAnalytics(app);
 
-const enviarNoticiaParaFirebase = async (title: string, body: string, bannerUrl: string) => {
+const enviarNoticiaParaFirebase = async (title: string, summary: string, body: string, bannerUrl: string, createdBy: string) => {
   try {
     const noticiasRef = collection(db, 'noticias');
     await addDoc(noticiasRef, {
       title: title,
+      summary: summary,
       body: body,
       bannerUrl: bannerUrl,
+      createdBy: createdBy,
     });
     console.log("Notícia enviada com sucesso!");
   } catch (error) {
