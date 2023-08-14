@@ -4,7 +4,7 @@ type newsProps = {
   bannerUrl: string,
 }
 
-export default function Noticia({ title, body, bannerUrl }: newsProps) {
+export default function PreviewNoticia({ title, body, bannerUrl }: newsProps) {
   
   return (
     <div>

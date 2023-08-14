@@ -3,7 +3,7 @@ import { auth, enviarNoticiaParaFirebase, uploadImagem } from "../firebase";
 import { useState } from "react";
 import { AiFillEye, AiOutlinePlus } from "react-icons/ai";
 import * as Dialog from "@radix-ui/react-dialog";
-import Noticia from "../components/Noticia";
+import PreviewNoticia from "../components/PreviewNoticia";
 
 export default function AdminControl() {
   const [imagem, setImagem] = useState<File | null>(null);
@@ -114,17 +114,17 @@ export default function AdminControl() {
           <Dialog.Root>
             <Dialog.Trigger
               asChild
-              className="text-white mx-auto w-full md:w-[50%] px-4 whitespace-normal"
+              className="mx-auto w-full md:w-[50%] px-4 whitespace-normal"
             >
-              <button className="flex items-center justify-center flex-1 h-16 rounded uppercase font-semibold bg-gray-100 text-gray-800">
+              <button className="flex items-center justify-center flex-1 h-16 rounded uppercase font-semibold bg-gray-200 text-gray-800">
                 Preview
                 <AiFillEye className="ml-4" />
               </button>
             </Dialog.Trigger>
             <Dialog.Portal>
               <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
-              <Dialog.Content className="bg-cyan-700 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[90%] max-h-full px-6 py-8 my-4 center flex justify-center rounded">
-                <Noticia title={title} body={body} bannerUrl={previewImageUrl} />
+              <Dialog.Content className="bg-cyan-700 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[90%] max-h-full px-6 py-8 my-4 flex justify-center rounded">
+                <PreviewNoticia title={title} body={body} bannerUrl={previewImageUrl} />
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>

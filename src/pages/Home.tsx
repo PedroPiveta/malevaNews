@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Header from '../components/Header';
 import { db } from '../firebase';
 import { collection, getDocs, query } from 'firebase/firestore';
-import Noticia from '../components/Noticia';
+import PreviewNoticia from '../components/PreviewNoticia';
 
 
 export default function Home() {
@@ -33,7 +33,7 @@ export default function Home() {
         <ul>
           {
             noticias.map(({title, body, bannerUrl} = noticias, index) => (
-              <Noticia title={title} body={body} bannerUrl={bannerUrl} key={index} />
+              <PreviewNoticia title={title} body={body} bannerUrl={bannerUrl} key={index} />
             ))
           }
         </ul>
