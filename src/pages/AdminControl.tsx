@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { auth, enviarNoticiaParaFirebase, uploadImagem } from "../firebase";
 import { useState } from "react";
 import { AiFillEye, AiOutlinePlus } from "react-icons/ai";
+import { ImExit } from "react-icons/im";
 import * as Dialog from "@radix-ui/react-dialog";
 import PreviewNoticia from "../components/PreviewNoticia";
 
@@ -32,7 +33,6 @@ export default function AdminControl() {
       setPreviewImageUrl(previewUrl);
     }
   }
-  
 
   async function createNews(e: React.ChangeEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -69,7 +69,7 @@ export default function AdminControl() {
       </header>
 
       <form
-        className="bg-cyan-700 rounded-md mt-12 py-4 px-2 flex flex-col items-center md:w-[70%]"
+        className="bg-cyan-700 rounded-md mt-16 mb-12 py-8 px-2 flex flex-col items-center md:w-[70%]"
         onSubmit={createNews}
       >
         <label className="text-white text-lg" htmlFor="title">
@@ -116,7 +116,7 @@ export default function AdminControl() {
               asChild
               className="mx-auto w-full md:w-[50%] px-4 whitespace-normal"
             >
-              <button className="flex items-center justify-center flex-1 h-16 rounded uppercase font-semibold bg-gray-200 text-gray-800">
+              <button className="flex items-center justify-center flex-1 h-16 rounded uppercase font-semibold bg-gray-200 text-gray-800 hover:bg-gray-800 hover:text-gray-200 focus:bg-gray-800 focus:text-gray-200 transition duration-150 ease-in-out">
                 Preview
                 <AiFillEye className="ml-4" />
               </button>
@@ -124,20 +124,28 @@ export default function AdminControl() {
             <Dialog.Portal>
               <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
               <Dialog.Content className="bg-cyan-700 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[90%] max-h-full px-6 py-8 my-4 flex justify-center rounded">
-                <PreviewNoticia title={title} body={body} bannerUrl={previewImageUrl} />
+                <PreviewNoticia
+                  title={title}
+                  body={body}
+                  bannerUrl={previewImageUrl}
+                />
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>
           <button
-            className="flex items-center justify-center flex-1 text-white font-semibold bg-cyan-800 h-16 rounded uppercase mt-6 mb-6"
+            className="flex items-center justify-center flex-1 text-white font-semibold bg-cyan-800 h-16 rounded uppercase mt-6 mb-6 hover:bg-cyan-200 hover:text-cyan-700 focus:bg-cyan-200 focus:text-cyan-700 transition duration-150 ease-in-out"
             type="submit"
           >
             postar notícia
-            <AiOutlinePlus className="mr-4 font-bold" />  
+            <AiOutlinePlus className="mr-4 font-bold" />
           </button>
         </div>
-        <button type="button" className="text-white" onClick={onSignOut}>
-          Sair da conta de admin
+        <button
+          type="button"
+          className="text-white bg-red-600 border-2 border-red-600 hover:brightness-90 transition duration-150 ease-in-out  px-4 rounded uppercase font-semibold py-2 flex items-center gap-2"
+          onClick={onSignOut}
+        >
+          Sair da conta de admin <ImExit />
         </button>
       </form>
     </div>

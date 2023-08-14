@@ -26,7 +26,11 @@ export default function AdminLogin() {
     e.preventDefault();
 
     try {
-      const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+      const userCredentials = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       if (userCredentials.user) {
         navigate("/create");
       }
@@ -36,16 +40,19 @@ export default function AdminLogin() {
   };
 
   const { loggedIn, checkingStatus } = useAuthStatus();
-    
-    if (checkingStatus) {
-        return <div>Loading...</div>
-    } else if (loggedIn) {
-      return <Navigate to="/create" />
-    } 
-    
- return (
+
+  if (checkingStatus) {
+    return <div>Loading...</div>;
+  } else if (loggedIn) {
+    return <Navigate to="/create" />;
+  }
+
+  return (
     <div className="w-screen h-screen flex justify-center pt-10">
-      <form onSubmit={onSubmit} className="whitespace-nowrap w-full md:w-[60%] max-h-[70%] bg-cyan-700 flex flex-col items-center gap-5 py-10 px-3  mx-5 md:mx-10 rounded-md outline-none-none">
+      <form
+        onSubmit={onSubmit}
+        className="whitespace-nowrap w-full md:w-[60%] max-h-[70%] bg-cyan-700 flex flex-col items-center gap-5 py-10 px-3  mx-5 md:mx-10 rounded-md outline-none-none"
+      >
         <h1 className="text-2xl font-semibold font-sans text-zinc-100">
           Admin Login
         </h1>
