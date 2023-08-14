@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { auth, enviarNoticiaParaFirebase, uploadImagem } from "../firebase";
 import { useState } from "react";
-import { AiOutlinePlus } from "react-icons/ai";
+import { AiFillEye, AiOutlinePlus } from "react-icons/ai";
 import * as Dialog from "@radix-ui/react-dialog";
 import Noticia from "../components/Noticia";
 
@@ -69,7 +69,7 @@ export default function AdminControl() {
       </header>
 
       <form
-        className="bg-cyan-700 rounded-md mt-12 py-4 px-2 flex flex-col items-center w-[70%]"
+        className="bg-cyan-700 rounded-md mt-12 py-4 px-2 flex flex-col items-center md:w-[70%]"
         onSubmit={createNews}
       >
         <label className="text-white text-lg" htmlFor="title">
@@ -81,6 +81,7 @@ export default function AdminControl() {
           type="text"
           name="title"
           id="title"
+          required
         />
         <label className="text-white text-lg" htmlFor="summary">
           Resumo da notícia
@@ -90,6 +91,7 @@ export default function AdminControl() {
           onChange={onChange}
           name="summary"
           id="summary"
+          required
         />
         <label className="text-white text-lg" htmlFor="body">
           Corpo da notícia
@@ -99,6 +101,7 @@ export default function AdminControl() {
           onChange={onChange}
           name="body"
           id="body"
+          required
         />
         <input
           className="text-white mx-auto w-full md:w-[50%] px-4 whitespace-normal"
@@ -107,28 +110,32 @@ export default function AdminControl() {
           accept=".jpg,.png,.jpeg"
           required
         />
-        <Dialog.Root>
-          <Dialog.Trigger
-            asChild
-            className="text-white mx-auto w-full md:w-[50%] px-4 whitespace-normal"
+        <div className="flex items-center justify-center space-x-2 md:space-x-8">
+          <Dialog.Root>
+            <Dialog.Trigger
+              asChild
+              className="text-white mx-auto w-full md:w-[50%] px-4 whitespace-normal"
+            >
+              <button className="flex items-center justify-center flex-1 h-16 rounded uppercase font-semibold bg-gray-100 text-gray-800">
+                Preview
+                <AiFillEye className="ml-4" />
+              </button>
+            </Dialog.Trigger>
+            <Dialog.Portal>
+              <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
+              <Dialog.Content className="bg-cyan-700 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[90%] max-h-full px-6 py-8 my-4 center flex justify-center rounded">
+                <Noticia title={title} body={body} bannerUrl={previewImageUrl} />
+              </Dialog.Content>
+            </Dialog.Portal>
+          </Dialog.Root>
+          <button
+            className="flex items-center justify-center flex-1 text-white font-semibold bg-cyan-800 h-16 rounded uppercase mt-6 mb-6"
+            type="submit"
           >
-            <button>Preview</button>
-          </Dialog.Trigger>
-          <Dialog.Portal>
-            <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
-            <Dialog.Content className="fixed inset-0 flex items-center justify-center">
-              <Noticia title={title} body={body} bannerUrl={previewImageUrl} />
-              <Dialog.Close className="absolute top-0 right-0 m-4" />
-            </Dialog.Content>
-          </Dialog.Portal>
-        </Dialog.Root>
-        <button
-          className="flex items-center text-white font-semibold bg-cyan-800 py-2 px-4 rounded uppercase mt-6 mb-6"
-          type="submit"
-        >
-          <AiOutlinePlus className="mr-2 font-semibold" />
-          postar notícia
-        </button>
+            postar notícia
+            <AiOutlinePlus className="mr-4 font-bold" />  
+          </button>
+        </div>
         <button type="button" className="text-white" onClick={onSignOut}>
           Sair da conta de admin
         </button>
