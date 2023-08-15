@@ -6,10 +6,14 @@ type newsProps = {
 
 export default function PreviewNoticia({ title, body, bannerUrl }: newsProps) {
   return (
-    <div>
-      <h1 className="text-white">{title}</h1>
-      <p className="text-white">{body}</p>
-      <img className="w-full" src={bannerUrl} alt="Banner" />
-    </div>
+    <article className="text-white max-w-[40rem] h-96 rounded bg-cyan-800 whitespace-nowrap text-ellipsis overflow-hidden">
+      <img
+        className="w-full h-60 object-cover bg-center"
+        src={bannerUrl}
+        alt="Banner"
+      />
+      <h1 className="text-lg text-center font-semibold mt-2">{title}</h1>
+      <p className="mt-2 text-center">{body}</p>
+    </article>
   );
 }
