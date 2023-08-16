@@ -51,7 +51,7 @@ export default function AdminControl() {
 
       navigate("/");
     } catch (error) {
-      console.error("Erro ao fazer upload da imagem:", error);
+      console.error("Erro ao fazer upload da noticia:", error);
     }
   }
 
@@ -59,17 +59,16 @@ export default function AdminControl() {
     auth.signOut();
     navigate("/");
   }
-  // implementar preview da noticia no form
 
   return (
     <div className="flex flex-col items-center">
-      <header className="w-full h-20 bg-cyan-700 px-4 py-2">
+      <header className="w-full h-20 bg-red-700 px-4 py-2">
         <h1 className="text-white text-2xl font-semibold">AdminControl</h1>
         <p className="text-white">Olá {auth.currentUser?.email}</p>
       </header>
 
       <form
-        className="bg-cyan-700 rounded-md mt-16 mb-12 py-8 px-2 flex flex-col items-center md:w-[70%]"
+        className="bg-red-700 rounded-md mt-16 mb-12 py-8 px-2 flex flex-col items-center md:w-[70%]"
         onSubmit={createNews}
       >
         <label className="text-white text-lg" htmlFor="title">
@@ -91,7 +90,6 @@ export default function AdminControl() {
           onChange={onChange}
           name="summary"
           id="summary"
-          required
         />
         <label className="text-white text-lg" htmlFor="body">
           Corpo da notícia
@@ -116,24 +114,28 @@ export default function AdminControl() {
               asChild
               className="mx-auto w-full md:w-[50%] px-4 whitespace-normal"
             >
-              <button className="flex items-center justify-center flex-1 h-16 rounded uppercase font-semibold bg-gray-200 text-gray-800 hover:bg-gray-800 hover:text-gray-200 focus:bg-gray-800 focus:text-gray-200 transition duration-150 ease-in-out">
+              <button className="flex items-center justify-center flex-1 h-16 rounded uppercase font-semibold bg-gray-200 text-gray-800 hover:brightness-90 focus:brightness-90 transition duration-150 ease-in-out">
                 Preview
                 <AiFillEye className="ml-4" />
               </button>
             </Dialog.Trigger>
             <Dialog.Portal>
               <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-50" />
-              <Dialog.Content className="bg-cyan-700 fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[90%] max-h-full px-6 py-8 my-4 flex justify-center rounded">
-                <PreviewNoticia
-                  title={title}
-                  body={body}
-                  bannerUrl={previewImageUrl}
-                />
+              <Dialog.Content className="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center rounded">
+                {previewImageUrl ? (
+                  <PreviewNoticia
+                    title={title}
+                    summary={summary}
+                    bannerUrl={previewImageUrl}
+                  />
+                ) : (
+                  <p className="text-white">Nenhuma imagem selecionada</p>
+                )}
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>
           <button
-            className="flex items-center justify-center flex-1 text-white font-semibold bg-cyan-800 h-16 rounded uppercase mt-6 mb-6 hover:bg-cyan-200 hover:text-cyan-700 focus:bg-cyan-200 focus:text-cyan-700 transition duration-150 ease-in-out"
+            className="flex items-center justify-center flex-1 text-white font-semibold bg-red-800 h-16 rounded uppercase mt-6 mb-6 hover:bg-red-200 hover:text-red-700 focus:bg-red-200 focus:text-red-700 transition duration-150 ease-in-out"
             type="submit"
           >
             postar notícia

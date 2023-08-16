@@ -25,18 +25,18 @@ export default function Home() {
 
   console.log(noticias);
   return (
-    <div>
+    <main className="overflow-x-hidden min-h-screen">
       <Header />
-      <section className="grid mx-6 mt-6  grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
-        {noticias.map(({ title, body, bannerUrl } = noticias, index) => (
+      <section className="mx-6 md:ml-24 mt-6 flex flex-col gap-4">
+        {noticias.map(({ title, summary, bannerUrl } = noticias, index) => (
           <PreviewNoticia
             title={title}
-            body={body}
+            summary={summary}
             bannerUrl={bannerUrl}
             key={index}
           />
         ))}
       </section>
-    </div>
+    </main>
   );
 }

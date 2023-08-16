@@ -4,6 +4,7 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { Navigate, useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import useAuthStatus from "../hooks/useAuthStatus";
+import Spinner from "../components/Spinner";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ export default function AdminLogin() {
   const { loggedIn, checkingStatus } = useAuthStatus();
 
   if (checkingStatus) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   } else if (loggedIn) {
     return <Navigate to="/create" />;
   }
@@ -51,14 +52,14 @@ export default function AdminLogin() {
     <div className="w-screen h-screen flex justify-center pt-10">
       <form
         onSubmit={onSubmit}
-        className="whitespace-nowrap w-full md:w-[60%] max-h-[70%] bg-cyan-700 flex flex-col items-center gap-5 py-10 px-3  mx-5 md:mx-10 rounded-md outline-none-none"
+        className="whitespace-nowrap w-full md:w-[60%] max-h-[70%] bg-red-700 flex flex-col items-center gap-5 py-10 px-3  mx-5 md:mx-10 rounded-md outline-none-none"
       >
         <h1 className="text-2xl font-semibold font-sans text-zinc-100">
           Admin Login
         </h1>
 
         <input
-          className="w-full md:w-[80%] rounded bg-zinc-100 focus:bg-opacity-75 border-none px-2 py-4  focus:outline-cyan-950 text-sm md:text-lg"
+          className="w-full md:w-[80%] rounded bg-zinc-100 focus:bg-opacity-75 border-none px-2 py-4  focus:outline-red-950 text-sm md:text-lg"
           type="email"
           name="email"
           id="email"
@@ -69,7 +70,7 @@ export default function AdminLogin() {
 
         <div className="w-full md:w-[80%] relative">
           <input
-            className="w-full h-full rounded bg-zinc-100 focus:bg-opacity-75 border-none px-2 py-4  focus:outline-cyan-950 text-sm md:text-lg"
+            className="w-full h-full rounded bg-zinc-100 focus:bg-opacity-75 border-none px-2 py-4  focus:outline-red-950 text-sm md:text-lg"
             type={showPassword ? "text" : "password"}
             id="password"
             value={password}
@@ -89,7 +90,7 @@ export default function AdminLogin() {
           )}
         </div>
 
-        <button className="text-zinc-100 font-medium font-sans mb-16 w-full md:w-[80%] bg-cyan-900 h-52 rounded">
+        <button className="text-zinc-100 font-medium font-sans mb-16 w-full md:w-[80%] bg-red-900 h-52 rounded">
           Entrar
         </button>
       </form>
