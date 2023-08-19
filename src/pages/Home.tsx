@@ -4,9 +4,11 @@ import { db } from "../firebase";
 import { collection, getDocs, query } from "firebase/firestore";
 import PreviewNoticia from "../components/PreviewNoticia";
 import { Link } from "react-router-dom";
+import Spinner from "../components/Spinner";
 
 export default function Home() {
   const [noticias, setNoticias] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getNoticias() {
@@ -21,8 +23,10 @@ export default function Home() {
         });
 
         setNoticias(noticiasData);
+        setLoading(false);
       } catch (error) {
         console.error("Erro ao obter notícias:", error);
+        setLoading(false);
       }
     }
     getNoticias();
@@ -33,6 +37,7 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden min-h-screen">
       <Header />
+      {loading && <Spinner />}
       <section className="mx-6 md:ml-24 mt-6 flex flex-col gap-4">
         {noticias.map(({ title, summary, bannerUrl, id }) => (
           <div className="w-fit" key={id}>
