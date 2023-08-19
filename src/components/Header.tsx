@@ -8,11 +8,6 @@ export default function Header() {
           Maleva News
         </h1>
       </Link>
-      <nav>
-        <Link to={"/noticia/1"} className="text-zinc-100 text-sm md:text-lg">
-          Notícias Recentes
-        </Link>
-      </nav>
     </header>
   );
 }
