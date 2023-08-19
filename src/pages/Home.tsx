@@ -35,14 +35,15 @@ export default function Home() {
       <Header />
       <section className="mx-6 md:ml-24 mt-6 flex flex-col gap-4">
         {noticias.map(({ title, summary, bannerUrl, id }) => (
-          <Link to={id}>
-            <PreviewNoticia
-              title={title}
-              summary={summary}
-              bannerUrl={bannerUrl}
-              key={id}
-            />
-          </Link>
+          <div className="w-fit" key={id}>
+            <Link to={"/noticia/" + id}>
+              <PreviewNoticia
+                title={title}
+                summary={summary}
+                bannerUrl={bannerUrl}
+              />
+            </Link>
+          </div>
         ))}
       </section>
     </main>

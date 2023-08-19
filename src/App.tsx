@@ -4,6 +4,7 @@ import AdminLogin from "./pages/AdminLogin";
 import PrivateRoute from "./components/PrivateRoute";
 import AdminControl from "./pages/AdminControl";
 import Footer from "./components/Footer";
+import NewsDetails from "./pages/NewsDetails";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/noticia/:id" />
+          <Route path="/noticia/:id" element={<NewsDetails />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/create" element={<PrivateRoute />}>
             <Route path="/create" element={<AdminControl />} />
