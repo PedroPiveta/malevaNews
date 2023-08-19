@@ -41,14 +41,14 @@ export default function NewsDetails() {
           {noticia.title ? (
             <article className="text-gray-100">
               <img
-                className="w-full max-h-96 rounded aspect-video"
+                className="mx-auto max-w-full max-h-96 rounded aspect-video"
                 src={noticia.bannerUrl}
                 alt="banner"
               />
               <h1 className="text-2xl md:text-4xl font-bold mt-6">
                 {noticia.title}
               </h1>
-              <p className="mt-6">{noticia.body}</p>
+              <p className="mt-6 text-justify text-base">{noticia.body}</p>
             </article>
           ) : (
             <Spinner />
