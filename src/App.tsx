@@ -11,6 +11,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/noticia/:id" />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/create" element={<PrivateRoute />}>
             <Route path="/create" element={<AdminControl />} />
