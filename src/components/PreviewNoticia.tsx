@@ -10,7 +10,7 @@ export default function PreviewNoticia({
   bannerUrl,
 }: newsProps) {
   return (
-    <article className="aspect-video relative text-white w-full h-40 sm:w-[30rem] sm:h-64 rounded whitespace-normal text-ellipsis overflow-hidden [&>*:nth-child(1)]:hover:scale-105">
+    <article className="aspect-video relative text-white h-40 sm:w-[30rem] md:w-[35rem] sm:h-64 rounded whitespace-normal text-ellipsis overflow-hidden [&>*:nth-child(1)]:hover:scale-105">
       <img
         className="absolute -z-10 inset-0 brightness-75 transition duration-200 ease-in-out overflow-hidden"
         src={bannerUrl}

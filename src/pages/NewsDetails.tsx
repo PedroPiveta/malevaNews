@@ -37,7 +37,7 @@ export default function NewsDetails() {
     <div className="overflow-x-hidden">
       <Header />
       <main className="min-h-screen">
-        <section className="mt-6 flex flex-col items-center w-[75%] mx-auto py-6 px-4 bg-gray-700 shadow-md rounded-sm">
+        <section className="mt-6 flex flex-col items-center w-full sm:w-[75%] mx-auto py-12 px-6 border-x border-gray-400 rounded-sm">
           {noticia.title ? (
             <article className="text-gray-100">
               <img

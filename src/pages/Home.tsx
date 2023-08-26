@@ -38,7 +38,7 @@ export default function Home() {
     <main className="overflow-x-hidden min-h-screen">
       <Header />
       {loading && <Spinner />}
-      <section className="mx-6 md:ml-24 mt-6 flex flex-col gap-4">
+      <section className="items-center sm:items-start sm:ml-24 mt-6 flex flex-col gap-4">
         {noticias.map(({ title, summary, bannerUrl, id }) => (
           <div className="w-fit" key={id}>
             <Link to={"/noticia/" + id}>
